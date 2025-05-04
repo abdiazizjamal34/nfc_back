@@ -43,11 +43,34 @@ exports.getUserCards = async (req, res) => {
 };
 
 // @desc    Get one card (for public viewing)
+// exports.getCardById = async (req, res) => {
+//   const card = await Card.findById(req.params.id);
+//   if (!card) return res.status(404).json({ message: 'Card not found' });
+//   res.json(card);
+// };
+
+
 exports.getCardById = async (req, res) => {
-  const card = await Card.findById(req.params.id);
-  if (!card) return res.status(404).json({ message: 'Card not found' });
-  res.json(card);
+  try {
+    const card = await Card.findById(req.params.id);
+    if (!card) return res.status(404).json({ message: 'Card not found' });
+
+    // Add full URL to image fields
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+
+    const response = {
+      ...card.toObject(),
+      profileImage: card.profileImage ? `${baseUrl}${card.profileImage}` : null,
+      CoverImage: card.CoverImage ? `${baseUrl}${card.CoverImage}` : null,
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.error("Error fetching card:", error);
+    res.status(500).json({ message: "Server error" });
+  }
 };
+
 
 // @desc    Update card
 exports.updateCard = async (req, res) => {
