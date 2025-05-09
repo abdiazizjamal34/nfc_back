@@ -23,7 +23,7 @@ Content-Type: application/json
 ####
 POST http://localhost:5000/api/cards
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTcyMzFhZmIzMDVhNzRlMjM5ZTkyYiIsImlhdCI6MTc0NjM0Njg2NCwiZXhwIjoxNzQ4OTM4ODY0fQ.xquo6Bd1lkCci4dsBibuZORjl2zuTxuGqkFYu3kWjn0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWU2OTA5ZjY4MWEyMTE5ODY1ZWQyZiIsImlhdCI6MTc0NjgyODIxNSwiZXhwIjoxNzQ5NDIwMjE1fQ.ggcIY9qUytk4Y8hTgh185-yzoCdYCTY7UZK1uFIZClI
 
 {
   "name": "John Doe",
@@ -60,8 +60,23 @@ GET  http://localhost:5000/api/cards/lacaso
 
 
 ####
-PUT /api/cards/{cardId}
+PUT  http://localhost:5000/api/cards/681e6928f681a2119865ed33
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWU2OTA5ZjY4MWEyMTE5ODY1ZWQyZiIsImlhdCI6MTc0NjgyODIxNSwiZXhwIjoxNzQ5NDIwMjE1fQ.ggcIY9qUytk4Y8hTgh185-yzoCdYCTY7UZK1uFIZClI
 
+{
+
+   "website": "https://johndoe.dev",
+  "address": "Addis Ababa, Ethiopia",
+  "socialLinks": {
+    "linkedin": "https://linkedin.com/in/johndoe",
+    "twitter": "https://twitter.com/johndoe"
+  },
+  "customLinks": [
+    { "label": "Portfolio", "url": "https://johndoe.dev/portfolio" },
+    { "label": "Resume", "url": "https://johndoe.dev/resume.pdf" }
+  ]
+}
 
 ###
 DELETE /api/cards/{cardId}
@@ -75,6 +90,24 @@ Would you like to move on to setting up the React frontend (Login/Register + Car
 
 
 ####
-GET http://localhost:5000/api/cards/lacaso
+GET http://localhost:5000/api/cards/username/lacaso
 
 
+####
+
+PUT  http://localhost:5000/api/cards/681e6928f681a2119865ed33
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTcyMzFhZmIzMDVhNzRlMjM5ZTkyYiIsImlhdCI6MTc0NjM0Njg2NCwiZXhwIjoxNzQ4OTM4ODY0fQ.xquo6Bd1lkCci4dsBibuZORjl2zuTxuGqkFYu3kWjn0
+
+{
+  "website": "https://johndoe.dev",
+  "address": "Addis Ababa, Ethiopia",
+  "socialLinks": {
+    "linkedin": "https://linkedin.com/in/johndoe",
+    "twitter": "https://twitter.com/johndoe"
+  },
+  "customLinks": [
+    { "label": "Portfolio", "url": "https://johndoe.dev/portfolio" },
+    { "label": "Resume", "url": "https://johndoe.dev/resume.pdf" }
+  ]
+}

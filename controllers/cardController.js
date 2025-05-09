@@ -1,4 +1,5 @@
 const Card = require('../models/Card');
+const mongoose = require('mongoose');
 
 // @desc    Create new card with image upload
 exports.createCard = async (req, res) => {
@@ -129,18 +130,79 @@ exports.getCardBUsername = async (req, res) => {
 
 
 // @desc    Update card
+// exports.updateCard = async (req, res) => {
+//   const card = await Card.findById(req.params.id);
+//   if (!card) return res.status(404).json({ message: 'Card not found' });
+
+//   if (card.user.toString() !== req.user._id.toString()) {
+//     return res.status(403).json({ message: 'Not authorized to update this card' });
+//   }
+
+//   Object.assign(card, req.body);
+//   const updated = await card.save();
+//   res.json(updated);
+// };
+
+
 exports.updateCard = async (req, res) => {
-  const card = await Card.findById(req.params.id);
-  if (!card) return res.status(404).json({ message: 'Card not found' });
+  try {
+    console.log('Authenticated user in updateCard:', req.user); // Debug log
 
-  if (card.user.toString() !== req.user._id.toString()) {
-    return res.status(403).json({ message: 'Not authorized to update this card' });
+    if (!req.user) {
+      return res.status(401).json({ message: 'Not authorized, user not found' });
+    }
+
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: 'Invalid card ID' });
+    }
+
+    const card = await Card.findById(req.params.id);
+    if (!card) {
+      return res.status(404).json({ message: 'Card not found' });
+    }
+
+    if (card.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Not authorized to update this card' });
+    }
+
+    Object.assign(card, req.body);
+    const updated = await card.save();
+
+    res.json(updated);
+  } catch (error) {
+    console.error('Error updating card:', error);
+    res.status(500).json({ message: 'Server error' });
   }
-
-  Object.assign(card, req.body);
-  const updated = await card.save();
-  res.json(updated);
 };
+
+
+// exports.updateCard = async (req, res) => {
+//   try {
+//     // Validate the card ID
+//     if (!mongoose.isValidObjectId(req.params.id)) {
+//       return res.status(400).json({ message: 'Invalid card ID' });
+//     }
+
+//     const card = await Card.findById(req.params.id);
+//     if (!card) {
+//       return res.status(404).json({ message: 'Card not found' });
+//     }
+
+//     // Check if the user is authorized to update the card
+//     if (card.user.toString() !== req.user._id.toString()) {
+//       return res.status(403).json({ message: 'Not authorized to update this card' });
+//     }
+
+//     // Update the card with the request body
+//     Object.assign(card, req.body);
+//     const updated = await card.save();
+
+//     res.json(updated);
+//   } catch (error) {
+//     console.error('Error updating card:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
 
 // @desc    Delete card
 exports.deleteCard = async (req, res) => {
