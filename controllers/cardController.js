@@ -5,6 +5,11 @@ exports.createCard = async (req, res) => {
   try {
     const { body, files, user } = req;
 
+    const existingCard = await Card.findOne({ username: body.username });
+    if (existingCard) {
+      return res.status(400).json({ message: "Username already exists" });
+    }
+
     const cardData = {
       ...body,
       user: user._id,
@@ -70,6 +75,57 @@ exports.getCardById = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+// exports.getCardBUsername = async (req, res) => {
+//   try {
+//     const card = await Card.findOne( {username :req.params.username});
+//     if (!card) return res.status(404).json({ message: 'Card not found' });
+
+//     // Add full URL to image fields
+//     const baseUrl = `${req.protocol}://${req.get('host')}`;
+
+//     const response = {
+//       ...card.toObject(),
+//       profileImage: card.profileImage ? `${baseUrl}${card.profileImage}` : null,
+//       CoverImage: card.CoverImage ? `${baseUrl}${card.CoverImage}` : null,
+//     };
+
+//     res.json(response);
+//   } catch (error) {
+//     console.error("Error fetching card:", error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
+
+
+exports.getCardBUsername = async (req, res) => {
+  try {
+    // Use findOne to search by the username field
+    console.log("Querying username:", req.params.username);
+    // const card = await Card.findOne({ username: req.params.username });
+    const card = await Card.findOne({ username: new RegExp(`^${req.params.username}$`, 'i') });
+
+    if (!card) return res.status(404).json({ message: 'Card not found' });
+
+    // Add full URL to image fields
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+
+    const response = {
+      ...card.toObject(),
+      profileImage: card.profileImage ? `${baseUrl}${card.profileImage}` : null,
+      CoverImage: card.CoverImage ? `${baseUrl}${card.CoverImage}` : null,
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.error("Error fetching card:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
 
 
 // @desc    Update card

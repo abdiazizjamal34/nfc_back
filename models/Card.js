@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cardSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   name: { type: String, required: true },
+  username: { type: String, required: true , unique: true },
   title: { type: String },
   company: { type: String },
   phone: { type: String },

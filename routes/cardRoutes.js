@@ -6,6 +6,7 @@ const {
   createCard,
   getUserCards,
   getCardById,
+  getCardBUsername,
   updateCard,
   deleteCard,
 } = require('../controllers/cardController');
@@ -28,8 +29,23 @@ router.post('/',   upload.fields([
     { name: 'profileImage', maxCount: 1 },
     { name: 'CoverImage', maxCount: 1 }
   ]), protect, createCard);
+
 router.get('/mine', protect, getUserCards);
 router.get('/:id', getCardById);
+router.get('/username/:username', getCardBUsername);
+
+// router.get('/:username', getCardBUsername);
+// router.get('/:param', async (req, res, next) => {
+//   const { param } = req.params;
+
+//   // Check if the param is a valid ObjectId
+//   if (/^[0-9a-fA-F]{24}$/.test(param)) {
+//     return getCardById(req, res, next);
+//   } else {
+//     return getCardBUsername(req, res, next);
+//   }
+// });
+
 router.put('/:id', protect, updateCard);
 router.delete('/:id', protect, deleteCard);
 

@@ -1,0 +1,80 @@
+
+
+### get 
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+#### get
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "john@example.com",
+    "password": "password123"
+}
+
+
+####
+POST http://localhost:5000/api/cards
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTcyMzFhZmIzMDVhNzRlMjM5ZTkyYiIsImlhdCI6MTc0NjM0Njg2NCwiZXhwIjoxNzQ4OTM4ODY0fQ.xquo6Bd1lkCci4dsBibuZORjl2zuTxuGqkFYu3kWjn0
+
+{
+  "name": "John Doe",
+  "title": "Software Engineer",
+  "company": "Tech Co.",
+  "phone": "+251912345678",
+  "email": "john@techco.com",
+  "website": "https://johndoe.dev",
+  "address": "Addis Ababa, Ethiopia",
+  "socialLinks": {
+    "linkedin": "https://linkedin.com/in/johndoe",
+    "twitter": "https://twitter.com/johndoe"
+  },
+  "customLinks": [
+    { "label": "Portfolio", "url": "https://johndoe.dev/portfolio" },
+    { "label": "Resume", "url": "https://johndoe.dev/resume.pdf" }
+  ],
+  "profileImage": "https://cdn.com/img.jpg"
+}
+#### get
+
+GET http://localhost:5000/api/cards/mine
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTcyMzFhZmIzMDVhNzRlMjM5ZTkyYiIsImlhdCI6MTc0NjM0Njg2NCwiZXhwIjoxNzQ4OTM4ODY0fQ.xquo6Bd1lkCci4dsBibuZORjl2zuTxuGqkFYu3kWjn0
+
+###get single card
+
+GET  http://localhost:5000/api/cards/6817df191563644c0c017c31
+
+
+find by userName
+###
+GET  http://localhost:5000/api/cards/lacaso
+
+
+####
+PUT /api/cards/{cardId}
+
+
+###
+DELETE /api/cards/{cardId}
+
+
+######
+
+Would you like to move on to setting up the React frontend (Login/Register + Card Dashboard) or implement image upload using Cloudinary/Firebase next?
+
+
+
+
+####
+GET http://localhost:5000/api/cards/lacaso
+
+
