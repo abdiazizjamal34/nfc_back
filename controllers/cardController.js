@@ -2,6 +2,47 @@ const Card = require('../models/Card');
 const mongoose = require('mongoose');
 
 // @desc    Create new card with image upload
+// exports.createCard = async (req, res) => {
+//   try {
+//     const { body, files, user } = req;
+
+//     const existingCard = await Card.findOne({ username: body.username });
+//     if (existingCard) {
+//       return res.status(400).json({ message: "Username already exists" });
+//     }
+
+//     const cardData = {
+//       ...body,
+//       user: user._id,
+//       profileImage: files?.profileImage?.[0]?.path
+//         ? `/uploads/${files.profileImage[0].filename}`
+//         : undefined,
+//       CoverImage: files?.CoverImage?.[0]?.path
+//         ? `/uploads/${files.CoverImage[0].filename}`
+//         : undefined,
+//     };
+//     console.log("Incoming data:", cardData);
+  
+// // console.log("Request headers:", req.headers['content-type']);
+// // console.log("req.body:", req.body);
+// // console.log("req.files:", req.files);
+// console.log("headers:", req.headers['content-type']);
+// console.log("files received:", req.files);
+// console.log("body:", req.body);
+
+
+
+
+//     const card = new Card(cardData);
+//     const saved = await card.save();
+//     res.status(201).json(saved);
+//   } catch (error) {
+//     console.error("Card creation failed:", error);
+//     res.status(500).json({ message: "Failed to create card" });
+//   }
+// };
+
+
 exports.createCard = async (req, res) => {
   try {
     const { body, files, user } = req;
@@ -14,24 +55,14 @@ exports.createCard = async (req, res) => {
     const cardData = {
       ...body,
       user: user._id,
-      profileImage: files?.profileImage?.[0]?.path
-        ? `/uploads/${files.profileImage[0].filename}`
-        : undefined,
-      CoverImage: files?.CoverImage?.[0]?.path
-        ? `/uploads/${files.CoverImage[0].filename}`
-        : undefined,
+      profileImage: files?.profileImage?.[0]?.path || undefined,  // Cloudinary URL
+      CoverImage: files?.CoverImage?.[0]?.path || undefined,       // Cloudinary URL
     };
+
     console.log("Incoming data:", cardData);
-  
-// console.log("Request headers:", req.headers['content-type']);
-// console.log("req.body:", req.body);
-// console.log("req.files:", req.files);
-console.log("headers:", req.headers['content-type']);
-console.log("files received:", req.files);
-console.log("body:", req.body);
-
-
-
+    console.log("headers:", req.headers['content-type']);
+    console.log("files received:", req.files);
+    console.log("body:", req.body);
 
     const card = new Card(cardData);
     const saved = await card.save();
@@ -41,6 +72,7 @@ console.log("body:", req.body);
     res.status(500).json({ message: "Failed to create card" });
   }
 };
+
 
 // @desc    Get all cards for logged-in user
 exports.getUserCards = async (req, res) => {
