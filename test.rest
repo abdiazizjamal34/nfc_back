@@ -56,7 +56,7 @@ GET  http://localhost:5000/api/cards/6817df191563644c0c017c31
 
 find by userName
 ###
-GET  http://localhost:5000/api/cards/lacaso
+GET  http://localhost:5000/api/cards/Deek
 
 
 ####

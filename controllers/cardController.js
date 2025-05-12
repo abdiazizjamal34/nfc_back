@@ -146,8 +146,8 @@ exports.getCardBUsername = async (req, res) => {
 
     const response = {
       ...card.toObject(),
-      profileImage: card.profileImage ? `${baseUrl}${card.profileImage}` : null,
-      CoverImage: card.CoverImage ? `${baseUrl}${card.CoverImage}` : null,
+      profileImage: card.profileImage ? `${card.profileImage}` : null,
+      CoverImage: card.CoverImage ? `${card.CoverImage}` : null,
     };
 
     res.json(response);
